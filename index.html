@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#111018">
+    <meta name="description" content="aeris1024のホームページです。">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="aeris1024.net">
+    <meta property="og:description" content="aeris1024のホームページです。">
+    <meta property="og:url" content="https://www.aeris1024.net/">
+    <meta property="og:image" content="https://www.aeris1024.net/assets/avatar.jpg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="aeris1024.net">
+    <meta name="twitter:description" content="aeris1024のホームページです。">
+    <meta name="twitter:image" content="https://www.aeris1024.net/assets/avatar.jpg">
+    <title>aeris1024.net</title>
+    <link rel="icon" href="assets/avatar.jpg">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="ambient" aria-hidden="true"></div>
+
+    <main class="profile">
+      <div class="avatar-wrap">
+        <img
+          class="avatar"
+          src="assets/avatar.jpg"
+          width="400"
+          height="400"
+          alt="aeris1024のアイコン"
+        >
+      </div>
+
+      <h1>aeris1024.net</h1>
+      <p class="status">Website in transition.</p>
+
+      <nav class="links" aria-label="ソーシャルリンク">
+        <a href="https://x.com/aeris1024" target="_blank" rel="me noopener noreferrer">
+          <span>X</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <a href="https://github.com/aeris1024" target="_blank" rel="me noopener noreferrer">
+          <span>GitHub</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <a href="https://hub.vroid.com/users/834133" target="_blank" rel="me noopener noreferrer">
+          <span>VRoid Hub</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </nav>
+    </main>
+
+    <footer>
+      <span>© <span id="year">2026</span> aeris1024</span>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
