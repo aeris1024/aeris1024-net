@@ -8,6 +8,7 @@ on:
       - index.html
       - style.css
       - assets/**
+      - scripts/validate-site.ps1
       - .github/workflows/deploy.yml
   workflow_dispatch:
 
@@ -27,6 +28,10 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v6
+
+      - name: Validate the site
+        shell: pwsh
+        run: ./scripts/validate-site.ps1
 
       - name: Configure SSH
         env:
