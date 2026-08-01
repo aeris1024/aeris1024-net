@@ -1,0 +1,52 @@
+name: Deploy to Sakura VPS
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - index.html
+      - style.css
+      - assets/**
+      - .github/workflows/deploy.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Upload static site
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6
+
+      - name: Configure SSH
+        env:
+          VPS_SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          VPS_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$VPS_SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          printf '%s\n' "$VPS_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/deploy_key
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Upload the site
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          scp -i ~/.ssh/deploy_key -o BatchMode=yes index.html style.css "$VPS_USER@$VPS_HOST:/var/www/aeris1024.net/"
+          scp -i ~/.ssh/deploy_key -o BatchMode=yes -r assets "$VPS_USER@$VPS_HOST:/var/www/aeris1024.net/"
+
+      - name: Verify the deployment
+        run: |
+          curl --fail --silent --show-error --retry 3 https://www.aeris1024.net/ | grep --quiet 'aeris1024.net'
